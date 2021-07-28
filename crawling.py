@@ -4,8 +4,18 @@ from bs4 import BeautifulSoup
 url = 'http://www.cgv.co.kr/common/showtimes/iframeTheater.aspx?areacode=02&theatercode=0012&date=20210729'
 html = requests.get(url)
 soup = BeautifulSoup(html.text, 'html.parser')
-# 특정 영화만 가져와보기
+
+# 특정 영화 제목만 가져와보기
 # print(soup.select_one('body > div > div.sect-showtimes > ul > li:nth-child(1) > div > div.info-movie > a > strong'))
-title_list = soup.select('div.info-movie')
-for i in title_list:
-    print(i.select_one('a > strong').text.strip())
+
+# 모든 영화 제목 가져오기
+# title_list = soup.select('div.info-movie')
+# for i in title_list:
+#     print(i.select_one('a > strong').text.strip())
+
+imax = soup.select_one('span.imax')
+if(imax):
+    print('IMAX 예매가 열렸습니다.')
+else:
+    print('IMAX 예매가 아직 열리지 않았습니다.')
+
