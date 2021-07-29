@@ -1,7 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-url = 'http://www.cgv.co.kr/common/showtimes/iframeTheater.aspx?areacode=02&theatercode=0012&date=20210729'
+# url = 'http://www.cgv.co.kr/common/showtimes/iframeTheater.aspx?areacode=02&theatercode=0012&date=20210729'
+url = 'http://www.cgv.co.kr/common/showtimes/iframeTheater.aspx?areacode=02&theatercode=0012&date=20210806'
 html = requests.get(url)
 soup = BeautifulSoup(html.text, 'html.parser')
 
@@ -13,7 +14,11 @@ soup = BeautifulSoup(html.text, 'html.parser')
 # for i in title_list:
 #     print(i.select_one('a > strong').text.strip())
 
-imax = soup.select_one('span.imax')
+imax = soup.select('span.imax')
+for i in imax:
+    imax_title = i.find_parent('div', class_='col-times').select_one('div.info-movie > a > strong').text.strip()
+    print(imax_title)
+
 if(imax):
     print('IMAX 예매가 열렸습니다.')
 else:
