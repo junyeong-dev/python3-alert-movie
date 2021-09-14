@@ -1,6 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
+import telegram
+from token import api_key
 
+bot = telegram.Bot(token=api_key)
 # url = 'http://www.cgv.co.kr/common/showtimes/iframeTheater.aspx?areacode=02&theatercode=0012&date=20210729'
 url = 'http://www.cgv.co.kr/common/showtimes/iframeTheater.aspx?areacode=02&theatercode=0012&date=20210806'
 html = requests.get(url)
@@ -20,7 +23,7 @@ for i in imax:
     print(imax_title)
 
 if(imax):
-    print('IMAX 예매가 열렸습니다.')
+    bot.send_message(chat_id=1955432261, text='IMAX 예매가 열렸습니다.')
 else:
-    print('IMAX 예매가 아직 열리지 않았습니다.')
+    bot.send_message(chat_id=1955432261, text='IMAX 예매가 아직 열리지 않았습니다.')
 
