@@ -25,9 +25,11 @@ def scrap_movie():
         for i in imax:
             imax_title = i.find_parent('div', class_='col-times').select_one('div.info-movie > a > strong').text.strip()
             bot.send_message(chat_id=1955432261, text=imax_title + ' IMAX 예매가 열렸습니다.')
-    else:
-        bot.send_message(chat_id=1955432261, text='IMAX 예매가 아직 열리지 않았습니다.')
+        # 메시지 그만 보내기
+        sched.pause()
 
 
+# 스케줄러
 sched = BlockingScheduler()
+# 30초마다 메시지 보내기
 sched.add_job(scrap_movie(), 'interval', seconds=30)
